@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BlockLoader.DataLayer;
 using BlockLoader.PresentationLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,8 +18,27 @@ namespace BlockLoader.Tests
 				             new Block("b", 25, "Neváhej a koukej"),
 				             new Block("c", 35, "Neváhej a padej")
 			             };
-			var mainWindowViewModel = new MainWindowViewModel(new BlockRepositoryFake(blocks));
+			var respondents = new List<Respondent>
+			{
+				new Respondent
+				{
+					Id = "00000001",
+					ReachedBlocks = new List<string> {"a", "b"}
+				},
+				new Respondent
+				{
+					Id = "00000002",
+					ReachedBlocks = new List<string> {"b", "c"}
+				},
+                new Respondent
+                {
+                    Id = "00000003",
+                    ReachedBlocks = new List<string> {"a", "c"}
+                }
+            };
+            var mainWindowViewModel = new MainWindowViewModel(new BlockRepositoryFake(blocks), new RespondentRepositoryFake(respondents));
 			await mainWindowViewModel.LoadBlocks();
+			await mainWindowViewModel.LoadViewers();
 
 			Assert.AreEqual(blocks.Length, mainWindowViewModel.Blocks.Count);
 

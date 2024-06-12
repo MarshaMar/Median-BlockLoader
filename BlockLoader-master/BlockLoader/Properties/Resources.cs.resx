@@ -141,4 +141,13 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Načítání bloků</value>
   </data>
+  <data name="Viewers" xml:space="preserve">
+    <value>Diváci</value>
+  </data>
+  <data name="LoadViewers" xml:space="preserve">
+    <value>Načti diváky</value>
+  </data>
+  <data name="ErrorLoadingViewers" xml:space="preserve">
+    <value>Nastala chyba během načítání diváků.</value>
+  </data>
 </root>

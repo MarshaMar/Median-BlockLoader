@@ -9,10 +9,12 @@ namespace BlockLoader.PresentationLayer
 			Code = code;
 			Footage = footage;
 			Program = program;
-		}
+            ViewerCount = 0;
+        }
 
 		public string Code { get; }
 		public int Footage { get; }
 		public string Program { get; }
-	}
+        public int ViewerCount { get; set; }
+    }
 }

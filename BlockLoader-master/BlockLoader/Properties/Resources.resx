@@ -141,4 +141,13 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Block Loader</value>
   </data>
+  <data name="Viewers" xml:space="preserve">
+    <value>Viewers</value>
+  </data>
+  <data name="LoadViewers" xml:space="preserve">
+    <value>Load viewers</value>
+  </data>
+  <data name="ErrorLoadingViewers" xml:space="preserve">
+    <value>An error has occurred while loading viewers.</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -12,16 +13,19 @@ namespace BlockLoader.PresentationLayer
 	public class MainWindowViewModel : NotifyPropertyChangedBase
 	{
 		private readonly IBlockRepository _blockRepository;
-		private bool _isBusy;
+        private readonly IRespondentRepository _respondentRepository;
+        private bool _isBusy;
 		private bool _isGridVisible;
 
-		public MainWindowViewModel(IBlockRepository blockRepository)
+		public MainWindowViewModel(IBlockRepository blockRepository, IRespondentRepository respondentRepository)
 		{
 			_blockRepository = blockRepository;
-			IsGridVisible = false;
+            _respondentRepository = respondentRepository;
+            IsGridVisible = false;
 			Blocks = new ObservableCollection<BlockViewModel>();
 			LoadBlocksCommand = new AsyncDelegateCommand(LoadBlocks);
-		}
+            LoadViewersCommand = new AsyncDelegateCommand(LoadViewers);
+        }
 
 		public ObservableCollection<BlockViewModel> Blocks { get; }
 
@@ -56,8 +60,9 @@ namespace BlockLoader.PresentationLayer
 		}
 
 		public ICommand LoadBlocksCommand { get; }
-		
-		public async Task LoadBlocks()
+        public ICommand LoadViewersCommand { get; }
+
+        public async Task LoadBlocks()
 		{
 			IsBusy = true;
 			IsGridVisible = false;
@@ -84,6 +89,43 @@ namespace BlockLoader.PresentationLayer
 			}
 		}
 
+        public async Task LoadViewers()
+        {
+            IsBusy = true;
+
+            try
+            {
+                var respondents = await Task.Run(() => _respondentRepository.LoadRespondents());
+
+                foreach (var block in Blocks)
+                {
+                    block.ViewerCount = 0; // Resetování počtu diváků
+                }
+
+                foreach (var respondent in respondents)
+                {
+                    foreach (var reachedBlock in respondent.ReachedBlocks)
+                    {
+                        var block = Blocks.FirstOrDefault(b => b.Code == reachedBlock);
+                        if (block != null)
+                        {
+                            block.ViewerCount++;
+                        }
+                    }
+                }
+
+                NotifyPropertyChanged(() => Blocks);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(Resources.ErrorLoadingViewers, Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        
 		private static BlockViewModel CreateBlockViewModel(Block block)
 		{
 			return new BlockViewModel(block.Code, block.Footage, block.Program);

@@ -19,7 +19,7 @@ namespace BlockLoader.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -88,6 +88,15 @@ namespace BlockLoader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred while loading viewers..
+        /// </summary>
+        public static string ErrorLoadingViewers {
+            get {
+                return ResourceManager.GetString("ErrorLoadingViewers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Footage.
         /// </summary>
         public static string Footage {
@@ -115,6 +124,15 @@ namespace BlockLoader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load viewers.
+        /// </summary>
+        public static string LoadViewers {
+            get {
+                return ResourceManager.GetString("LoadViewers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Block Loader.
         /// </summary>
         public static string MainWindowTitle {
@@ -129,6 +147,15 @@ namespace BlockLoader.Properties {
         public static string Program {
             get {
                 return ResourceManager.GetString("Program", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viewers.
+        /// </summary>
+        public static string Viewers {
+            get {
+                return ResourceManager.GetString("Viewers", resourceCulture);
             }
         }
     }
